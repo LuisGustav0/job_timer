@@ -71,6 +71,17 @@ mixin _$HomeStore on _HomeStore, Store {
   }
 
   @override
+  void setListProject(List<ProjectModel> listProject) {
+    final _$actionInfo = _$_HomeStoreActionController.startAction(
+        name: '_HomeStore.setListProject');
+    try {
+      return super.setListProject(listProject);
+    } finally {
+      _$_HomeStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 listProject: ${listProject},

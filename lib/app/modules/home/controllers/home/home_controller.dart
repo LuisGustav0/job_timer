@@ -26,8 +26,17 @@ abstract class _HomeController with Store {
   Future<void> _loadListProject() async {
     try {
       store.onChangeStatus(HomeStatusE.loading);
+
+      final listProject =
+          await _projectService.findByStatus(store.filterProjectStatus);
+
+      store.setListProject(listProject);
+
+      store.onChangeStatus(HomeStatusE.complete);
     } catch (error, stack) {
       log('Erro ao carregar lista de projeto', error: error, stackTrace: stack);
+
+      store.onChangeStatus(HomeStatusE.failure);
 
       AsukaSnackbar.alert('Erro ao carregar lista de projeto').show();
     }

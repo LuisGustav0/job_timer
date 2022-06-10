@@ -6,17 +6,23 @@ import 'package:job_timer/app/modules/project/services/project/project_service.d
 import 'package:job_timer/app/modules/project/services/project/project_service_impl.dart';
 
 class ProjectModule extends Module {
+  static List<Bind> get exports => [
+        Bind.lazySingleton<ProjectRepository>(
+            (i) => ProjectRepositoryImpl(databaseService: i())),
+        Bind.lazySingleton<ProjectService>(
+            (i) => ProjectServiceImpl(projectRepository: i())),
+      ];
 
   @override
   List<Bind> get binds => [
-    Bind.lazySingleton<ProjectRepository>(
-        (i) => ProjectRepositoryImpl(databaseService: i())),
-    Bind.lazySingleton<ProjectService>(
+        Bind.lazySingleton<ProjectRepository>(
+            (i) => ProjectRepositoryImpl(databaseService: i())),
+        Bind.lazySingleton<ProjectService>(
             (i) => ProjectServiceImpl(projectRepository: i())),
-  ];
+      ];
 
   @override
   List<ModularRoute> get routes => [
-    ModuleRoute('/register', module: ProjectRegisterModule()),
-  ];
+        ModuleRoute('/register', module: ProjectRegisterModule()),
+      ];
 }

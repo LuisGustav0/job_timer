@@ -7,7 +7,7 @@ class HeaderProjectsMenu extends SliverPersistentHeaderDelegate {
   get _listProjectStatus => ProjectStatusE.values.map(
         (status) => DropdownMenuItem(
           value: status,
-          child: Text(status.name),
+          child: Text(status.label),
         ),
       ).toList();
 

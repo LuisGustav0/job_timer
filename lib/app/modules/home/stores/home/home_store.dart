@@ -22,5 +22,10 @@ abstract class _HomeStore with Store {
     this.statusE = statusE;
   }
 
+  @action
+  void setListProject(List<ProjectModel> listProject) {
+    this.listProject = listProject.asObservable();
+  }
+
   bool isStatusLoading() => statusE == HomeStatusE.loading;
 }
