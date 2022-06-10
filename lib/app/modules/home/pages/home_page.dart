@@ -18,10 +18,15 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => Scaffold(
-        drawer: const Drawer(
+        drawer: Drawer(
           child: SafeArea(
             child: ListTile(
-              title: Text('Sair'),
+              title: InkWell(
+                child: const Text('Sair'),
+                onTap: () async {
+                    await widget.controller.deleteAll();
+                },
+              ),
             ),
           ),
         ),
@@ -40,7 +45,9 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               SliverPersistentHeader(
-                delegate: HeaderProjectMenu(),
+                delegate: HeaderProjectMenu(
+                  controller: widget.controller,
+                ),
                 pinned: true,
               ),
               SliverVisibility(

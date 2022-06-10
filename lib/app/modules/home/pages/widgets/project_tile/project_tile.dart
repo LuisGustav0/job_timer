@@ -20,7 +20,7 @@ class ProjectTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
           color: AppColors.grey300,
-          width: 4,
+          width: 2,
         ),
       ),
       child: Column(
@@ -28,8 +28,10 @@ class ProjectTile extends StatelessWidget {
           ProjectName(
             projectModel: projectModel,
           ),
-          ProjectProgress(
-            projectModel: projectModel,
+          Expanded(
+            child: ProjectProgress(
+              projectModel: projectModel,
+            ),
           ),
         ],
       ),

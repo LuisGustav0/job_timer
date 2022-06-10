@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:asuka/asuka.dart';
 import 'package:job_timer/app/modules/home/enums/home_status_enum.dart';
 import 'package:job_timer/app/modules/home/stores/home/home_store.dart';
+import 'package:job_timer/app/modules/project/enums/project_status_enum.dart';
 import 'package:job_timer/app/modules/project/services/project/project_service.dart';
 import 'package:mobx/mobx.dart';
 
@@ -25,20 +26,56 @@ abstract class _HomeController with Store {
 
   Future<void> _loadListProject() async {
     try {
-      store.onChangeStatus(HomeStatusE.loading);
+      store.onChangeHomeStatus(HomeStatusE.loading);
 
       final listProject =
           await _projectService.findByStatus(store.filterProjectStatus);
 
       store.setListProject(listProject);
 
-      store.onChangeStatus(HomeStatusE.complete);
+      store.onChangeHomeStatus(HomeStatusE.complete);
     } catch (error, stack) {
       log('Erro ao carregar lista de projeto', error: error, stackTrace: stack);
 
-      store.onChangeStatus(HomeStatusE.failure);
+      store.onChangeHomeStatus(HomeStatusE.failure);
 
       AsukaSnackbar.alert('Erro ao carregar lista de projeto').show();
+    }
+  }
+
+  Future<void> onChangedStatus(final ProjectStatusE statusE) async {
+    try {
+      store.emit(HomeStatusE.loading, listProject: []);
+
+      final listProject = await _projectService.findByStatus(statusE);
+
+      store.emit(
+        HomeStatusE.complete,
+        listProject: listProject,
+        filterProjectStatus: statusE,
+      );
+    } catch (error, stack) {
+      log('Erro ao carregar lista de projeto', error: error, stackTrace: stack);
+
+      store.onChangeHomeStatus(HomeStatusE.failure);
+
+      AsukaSnackbar.alert('Erro ao carregar lista de projeto').show();
+    }
+  }
+
+  Future<void> deleteAll() async {
+    try {
+      store.emit(HomeStatusE.loading, listProject: []);
+
+      await _projectService.deleteAll();
+
+      await _loadListProject();
+    } catch (error, stack) {
+      log('Erro ao deletar lista de projeto', error: error, stackTrace: stack);
+
+      store.onChangeHomeStatus(HomeStatusE.failure);
+
+      AsukaSnackbar.alert('Erro ao deletar lista de projeto').show();
     }
   }
 }

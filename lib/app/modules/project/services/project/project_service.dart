@@ -5,4 +5,5 @@ abstract class ProjectService {
 
   Future<void> register(final ProjectModel projectModel);
   Future<List<ProjectModel>> findByStatus(final ProjectStatusE statusE);
+  Future<void> deleteAll();
 }

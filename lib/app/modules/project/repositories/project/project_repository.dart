@@ -5,4 +5,5 @@ abstract class ProjectRepository {
 
   Future<void> register(final Project project);
   Future<List<Project>> findByStatus(final ProjectStatusE statusE);
+  Future<void> deleteAll();
 }

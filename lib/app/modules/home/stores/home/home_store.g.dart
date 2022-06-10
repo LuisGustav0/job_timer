@@ -60,11 +60,35 @@ mixin _$HomeStore on _HomeStore, Store {
       ActionController(name: '_HomeStore', context: context);
 
   @override
-  void onChangeStatus(HomeStatusE statusE) {
-    final _$actionInfo = _$_HomeStoreActionController.startAction(
-        name: '_HomeStore.onChangeStatus');
+  void emit(HomeStatusE statusE,
+      {List<ProjectModel>? listProject, ProjectStatusE? filterProjectStatus}) {
+    final _$actionInfo =
+        _$_HomeStoreActionController.startAction(name: '_HomeStore.emit');
     try {
-      return super.onChangeStatus(statusE);
+      return super.emit(statusE,
+          listProject: listProject, filterProjectStatus: filterProjectStatus);
+    } finally {
+      _$_HomeStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void onChangeHomeStatus(HomeStatusE statusE) {
+    final _$actionInfo = _$_HomeStoreActionController.startAction(
+        name: '_HomeStore.onChangeHomeStatus');
+    try {
+      return super.onChangeHomeStatus(statusE);
+    } finally {
+      _$_HomeStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void onChangeProjectStatus(ProjectStatusE filterProjectStatus) {
+    final _$actionInfo = _$_HomeStoreActionController.startAction(
+        name: '_HomeStore.onChangeProjectStatus');
+    try {
+      return super.onChangeProjectStatus(filterProjectStatus);
     } finally {
       _$_HomeStoreActionController.endAction(_$actionInfo);
     }

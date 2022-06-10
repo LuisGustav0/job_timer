@@ -27,4 +27,9 @@ class ProjectServiceImpl implements ProjectService {
 
     return ProjectModel.fromListEntity(listProject);
   }
+
+  @override
+  Future<void> deleteAll() async {
+    await _projectRepository.deleteAll();
+  }
 }

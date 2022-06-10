@@ -16,7 +16,7 @@ class ProjectProgress extends StatelessWidget {
 
     double percent = 0.0;
 
-    if(totalListTask > 0) {
+    if (totalListTask > 0) {
       percent = totalListTask / projectModel.estimate;
     }
 
@@ -30,14 +30,19 @@ class ProjectProgress extends StatelessWidget {
         children: [
           Expanded(
             child: LinearProgressIndicator(
-              value: 0.5,
+              value: percent,
               backgroundColor: AppColors.grey400,
               color: AppColors.primaryColor,
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 8.0),
-            child: Text('${projectModel.estimate}h'),
+            child: Text(
+              '${projectModel.estimate}h',
+              style: const TextStyle(
+                color: AppColors.primaryColor,
+              ),
+            ),
           ),
         ],
       ),

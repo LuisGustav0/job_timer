@@ -10,15 +10,19 @@ class ProjectName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(projectModel.name),
-        const Icon(
-          JobTimerIcons.angle_double_right,
-          color: AppColors.primaryColor,
-          size: 20,
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(projectModel.name),
+          const Icon(
+            JobTimerIcons.angle_double_right,
+            color: AppColors.primaryColor,
+            size: 15,
+          )
+        ],
+      ),
     );
   }
 }

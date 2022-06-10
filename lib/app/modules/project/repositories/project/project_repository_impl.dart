@@ -42,7 +42,24 @@ class ProjectRepositoryImpl implements ProjectRepository {
         stackTrace: stack,
       );
 
-      throw Failure(message: 'Erro ao cadastrar projeto');
+      throw Failure(message: 'Erro ao buscar lista de projeto por status');
+    }
+  }
+
+  @override
+  Future<void> deleteAll() async {
+    try {
+      final connection = await _databaseService.openConnection();
+
+      await connection.writeTxn((isar) => isar.projects.clear());
+    } on IsarError catch (error, stack) {
+      log(
+        'Erro ao deletar lista de projeto',
+        error: error,
+        stackTrace: stack,
+      );
+
+      throw Failure(message: 'Erro ao deletar lista de projeto');
     }
   }
 }

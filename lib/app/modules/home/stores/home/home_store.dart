@@ -18,8 +18,29 @@ abstract class _HomeStore with Store {
   ProjectStatusE filterProjectStatus = ProjectStatusE.em_andamento;
 
   @action
-  void onChangeStatus(final HomeStatusE statusE) {
+  void emit(final HomeStatusE statusE, {
+    List<ProjectModel>? listProject,
+    ProjectStatusE? filterProjectStatus,
+  }) {
+    onChangeHomeStatus(statusE);
+
+    if(filterProjectStatus != null) {
+      onChangeProjectStatus(filterProjectStatus);
+    }
+
+    if(listProject != null) {
+      setListProject(listProject);
+    }
+  }
+
+  @action
+  void onChangeHomeStatus(final HomeStatusE statusE) {
     this.statusE = statusE;
+  }
+
+  @action
+  void onChangeProjectStatus(final ProjectStatusE filterProjectStatus) {
+    this.filterProjectStatus = filterProjectStatus;
   }
 
   @action

@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:job_timer/app/core/ui/app_colors.dart';
+import 'package:job_timer/app/modules/home/controllers/home/home_controller.dart';
 import 'package:job_timer/app/modules/project/enums/project_status_enum.dart';
 
 class HeaderProjectMenu extends SliverPersistentHeaderDelegate {
-  get _listProjectStatus => ProjectStatusE.values.map(
+  final HomeController _controller;
+
+  HeaderProjectMenu({
+    required HomeController controller,
+  }) : _controller = controller;
+
+  get _listProjectStatus => ProjectStatusE.values
+      .map(
         (status) => DropdownMenuItem(
           value: status,
           child: Text(status.label),
         ),
-      ).toList();
+      )
+      .toList();
 
   @override
   Widget build(
@@ -29,6 +38,7 @@ class HeaderProjectMenu extends SliverPersistentHeaderDelegate {
               SizedBox(
                 width: constraints.maxWidth * .5,
                 child: DropdownButtonFormField<ProjectStatusE>(
+                  value: ProjectStatusE.em_andamento,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -37,7 +47,11 @@ class HeaderProjectMenu extends SliverPersistentHeaderDelegate {
                     isCollapsed: true,
                   ),
                   items: _listProjectStatus,
-                  onChanged: (value) {},
+                  onChanged: (value) async {
+                    if (value == null) return;
+
+                    _controller.onChangedStatus(value);
+                  },
                 ),
               ),
               SizedBox(
@@ -45,8 +59,10 @@ class HeaderProjectMenu extends SliverPersistentHeaderDelegate {
                 child: ElevatedButton.icon(
                   label: const Text('Novo projeto'),
                   icon: const Icon(Icons.add),
-                  onPressed: () {
-                    Modular.to.pushNamed('/project/register');
+                  onPressed: () async {
+                    await Modular.to.pushNamed('/project/register');
+
+                    _controller.init();
                   },
                 ),
               ),
