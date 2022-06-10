@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:job_timer/app/modules/home/controllers/home/home_controller.dart';
-import 'package:job_timer/app/modules/home/pages/widgets/header_projects_menu.dart';
+import 'package:job_timer/app/modules/home/pages/widgets/header_list_project_menu/header_project_menu.dart';
+import 'package:job_timer/app/modules/home/pages/widgets/project_tile/project_tile.dart';
 
 class HomePage extends StatefulWidget {
   final HomeController controller;
@@ -39,7 +40,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               SliverPersistentHeader(
-                delegate: HeaderProjectsMenu(),
+                delegate: HeaderProjectMenu(),
                 pinned: true,
               ),
               SliverVisibility(
@@ -57,9 +58,8 @@ class _HomePageState extends State<HomePage> {
                 delegate: SliverChildListDelegate(
                   widget.controller.store.listProject
                       .map(
-                        (project) => ListTile(
-                          title: Text(project.name),
-                          subtitle: Text('${project.estimate}h'),
+                        (project) => ProjectTile(
+                          projectModel: project,
                         ),
                       )
                       .toList(),

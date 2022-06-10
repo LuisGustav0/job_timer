@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "320162145263-h2fsodv4aqc58e2v3eh450hbeck9hg8l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.br.innovation.job_timer",
+            "certificate_hash": "eb51349fac6f627362990229d781a8c8781dd29c"
+          }
+        },
+        {
           "client_id": "320162145263-uuncrkptt4ccd9otgputdu44jmko6g01.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +37,13 @@
             {
               "client_id": "320162145263-uuncrkptt4ccd9otgputdu44jmko6g01.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "320162145263-qfudmhd1noum6oeun748al15uqfq6fre.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.br.innovation.jobTimer"
+              }
             }
           ]
         }

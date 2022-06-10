@@ -3,7 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:job_timer/app/core/ui/app_colors.dart';
 import 'package:job_timer/app/modules/project/enums/project_status_enum.dart';
 
-class HeaderProjectsMenu extends SliverPersistentHeaderDelegate {
+class HeaderProjectMenu extends SliverPersistentHeaderDelegate {
   get _listProjectStatus => ProjectStatusE.values.map(
         (status) => DropdownMenuItem(
           value: status,

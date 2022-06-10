@@ -70,6 +70,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '320162145263',
     projectId: 'job-timer-99a48',
     storageBucket: 'job-timer-99a48.appspot.com',
+    androidClientId: '320162145263-h2fsodv4aqc58e2v3eh450hbeck9hg8l.apps.googleusercontent.com',
     iosClientId: '320162145263-qfudmhd1noum6oeun748al15uqfq6fre.apps.googleusercontent.com',
     iosBundleId: 'com.br.innovation.jobTimer',
   );

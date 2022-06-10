@@ -7,9 +7,9 @@ class LoginPage extends StatefulWidget {
   final LoginController controller;
 
   const LoginPage({
-    Key? key,
+    super.key,
     required this.controller,
-  }) : super(key: key);
+  });
 
   @override
   State<LoginPage> createState() => _LoginPageState();

@@ -8,9 +8,9 @@ class ProjectRegisterPage extends StatefulWidget {
   final ProjectRegisterController controller;
 
   const ProjectRegisterPage({
-    Key? key,
+    super.key,
     required this.controller,
-  }) : super(key: key);
+  });
 
   @override
   State<ProjectRegisterPage> createState() => _ProjectRegisterPageState();
