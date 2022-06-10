@@ -9,13 +9,16 @@ abstract class _ProjectRegisterStore with Store {
   @observable
   ProjectRegisterStatusE statusE = ProjectRegisterStatusE.initial;
 
+  @observable
+  String? errorMessage;
+
   @action
-  void onChangeStatus(
-    ProjectRegisterStatusE status, {
+  void emit(
+    ProjectRegisterStatusE statusE, {
     String? errorMessage,
   }) {
-    status = status;
-    errorMessage = errorMessage;
+    this.statusE = statusE;
+    this.errorMessage = errorMessage;
   }
 
   bool isShowContent() =>

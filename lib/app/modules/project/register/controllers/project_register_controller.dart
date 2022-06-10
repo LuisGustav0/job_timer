@@ -26,7 +26,7 @@ abstract class _ProjectRegisterController with Store {
 
   Future<void> register(final String name, final int estimate) async {
     try {
-      store.onChangeStatus(ProjectRegisterStatusE.loading);
+      store.emit(ProjectRegisterStatusE.loading);
 
       final projectModel = ProjectModel(
         name: name,
@@ -37,13 +37,13 @@ abstract class _ProjectRegisterController with Store {
 
       await _projectService.register(projectModel);
 
-      store.onChangeStatus(ProjectRegisterStatusE.success);
+      await Future.delayed(const Duration(seconds: 5));
 
       Modular.to.pop();
     } catch (error, stack) {
       log('Erro ao salvar projeto', error: error, stackTrace: stack);
 
-      store.onChangeStatus(
+      store.emit(
         ProjectRegisterStatusE.failure,
         errorMessage: 'Erro ao salvar projeto',
       );

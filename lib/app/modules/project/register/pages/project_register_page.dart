@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:job_timer/app/core/ui/app_colors.dart';
+import 'package:job_timer/app/core/widgets/button_with_load/button_with_load.dart';
 import 'package:job_timer/app/modules/project/register/controllers/project_register_controller.dart';
 import 'package:validatorless/validatorless.dart';
 
@@ -85,7 +86,9 @@ class _ProjectRegisterPageState extends State<ProjectRegisterPage> {
                 SizedBox(
                   width: widthBtnSave,
                   height: heightBtnSave,
-                  child: ElevatedButton(
+                  child: ButtonWithLoad(
+                    label: 'Salvar',
+                    isShowLoading: widget.controller.store.isStatusLoading(),
                     onPressed: () async {
                       final formValid =
                           _formKey.currentState?.validate() ?? false;
@@ -97,18 +100,6 @@ class _ProjectRegisterPageState extends State<ProjectRegisterPage> {
                         await widget.controller.register(name, estimate);
                       }
                     },
-                    child: const Text('Salvar'),
-                  ),
-                ),
-                Visibility(
-                  visible: widget.controller.store.isStatusLoading(),
-                  child: const Padding(
-                    padding: EdgeInsets.only(top: 15),
-                    child: Center(
-                      child: CircularProgressIndicator.adaptive(
-                        backgroundColor: AppColors.white,
-                      ),
-                    ),
                   ),
                 ),
               ],

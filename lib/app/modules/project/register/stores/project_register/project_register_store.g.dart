@@ -25,15 +25,31 @@ mixin _$ProjectRegisterStore on _ProjectRegisterStore, Store {
     });
   }
 
+  late final _$errorMessageAtom =
+      Atom(name: '_ProjectRegisterStore.errorMessage', context: context);
+
+  @override
+  String? get errorMessage {
+    _$errorMessageAtom.reportRead();
+    return super.errorMessage;
+  }
+
+  @override
+  set errorMessage(String? value) {
+    _$errorMessageAtom.reportWrite(value, super.errorMessage, () {
+      super.errorMessage = value;
+    });
+  }
+
   late final _$_ProjectRegisterStoreActionController =
       ActionController(name: '_ProjectRegisterStore', context: context);
 
   @override
-  void onChangeStatus(ProjectRegisterStatusE status, {String? errorMessage}) {
+  void emit(ProjectRegisterStatusE statusE, {String? errorMessage}) {
     final _$actionInfo = _$_ProjectRegisterStoreActionController.startAction(
-        name: '_ProjectRegisterStore.onChangeStatus');
+        name: '_ProjectRegisterStore.emit');
     try {
-      return super.onChangeStatus(status, errorMessage: errorMessage);
+      return super.emit(statusE, errorMessage: errorMessage);
     } finally {
       _$_ProjectRegisterStoreActionController.endAction(_$actionInfo);
     }
@@ -42,7 +58,8 @@ mixin _$ProjectRegisterStore on _ProjectRegisterStore, Store {
   @override
   String toString() {
     return '''
-statusE: ${statusE}
+statusE: ${statusE},
+errorMessage: ${errorMessage}
     ''';
   }
 }
