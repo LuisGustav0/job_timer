@@ -11,10 +11,10 @@ part 'login_controller.g.dart';
 class LoginController = _LoginController with _$LoginController;
 
 abstract class _LoginController with Store {
-  late AuthService _authService;
+  final AuthService _authService;
 
   @observable
-  LoginState state = LoginState();
+  LoginStore store = LoginStore();
 
   _LoginController({
     required AuthService authService,
@@ -22,14 +22,14 @@ abstract class _LoginController with Store {
 
   Future<void> signIn() async {
     try {
-      state.copyWith(status: LoginStatusE.LOADING);
+      store.onChangeStatus(LoginStatusE.loading);
 
       await _authService.signIn();
     } catch (error, stack) {
       log('Erro ao realizar login', error: error, stackTrace: stack);
 
-      state.copyWith(
-        status: LoginStatusE.FAILURE,
+      store.onChangeStatus(
+        LoginStatusE.failure,
         errorMessage: 'Erro ao realizar login',
       );
 

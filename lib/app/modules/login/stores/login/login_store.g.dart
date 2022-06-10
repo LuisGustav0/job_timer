@@ -8,9 +8,9 @@ part of 'login_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$LoginState on _LoginState, Store {
+mixin _$LoginStore on _LoginStore, Store {
   late final _$statusEAtom =
-      Atom(name: '_LoginState.statusE', context: context);
+      Atom(name: '_LoginStore.statusE', context: context);
 
   @override
   LoginStatusE get statusE {
@@ -26,7 +26,7 @@ mixin _$LoginState on _LoginState, Store {
   }
 
   late final _$errorMessageAtom =
-      Atom(name: '_LoginState.errorMessage', context: context);
+      Atom(name: '_LoginStore.errorMessage', context: context);
 
   @override
   String? get errorMessage {
@@ -41,17 +41,17 @@ mixin _$LoginState on _LoginState, Store {
     });
   }
 
-  late final _$_LoginStateActionController =
-      ActionController(name: '_LoginState', context: context);
+  late final _$_LoginStoreActionController =
+      ActionController(name: '_LoginStore', context: context);
 
   @override
-  void copyWith({required LoginStatusE status, String? errorMessage}) {
-    final _$actionInfo =
-        _$_LoginStateActionController.startAction(name: '_LoginState.copyWith');
+  void onChangeStatus(LoginStatusE status, {String? errorMessage}) {
+    final _$actionInfo = _$_LoginStoreActionController.startAction(
+        name: '_LoginStore.onChangeStatus');
     try {
-      return super.copyWith(status: status, errorMessage: errorMessage);
+      return super.onChangeStatus(status, errorMessage: errorMessage);
     } finally {
-      _$_LoginStateActionController.endAction(_$actionInfo);
+      _$_LoginStoreActionController.endAction(_$actionInfo);
     }
   }
 

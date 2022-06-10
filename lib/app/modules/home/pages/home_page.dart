@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:job_timer/app/core/ui/app_colors.dart';
+import 'package:job_timer/app/modules/home/controllers/home/home_controller.dart';
 import 'package:job_timer/app/modules/home/pages/widgets/header_projects_menu.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final HomeController controller;
+
+  const HomePage({Key? key, required this.controller}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -38,10 +41,50 @@ class _HomePageState extends State<HomePage> {
               delegate: HeaderProjectsMenu(),
               pinned: true,
             ),
+            // Visibility(
+            //   visible: widget.controller.store.isStatusLoading(),
+            //   child: const SizedBox(
+            //     height: 50,
+            //     child: Center(
+            //       child: CircularProgressIndicator.adaptive(),
+            //     ),
+            //   ),
+            // ),
             SliverList(
               delegate: SliverChildListDelegate(
                 [
-
+                  Container(
+                    height: 80,
+                    color: AppColors.blue,
+                  ),
+                  Container(
+                    height: 80,
+                    color: AppColors.blue,
+                  ),
+                  Container(
+                    height: 80,
+                    color: AppColors.blue,
+                  ),
+                  Container(
+                    height: 80,
+                    color: AppColors.blue,
+                  ),
+                  Container(
+                    height: 80,
+                    color: AppColors.blue,
+                  ),
+                  Container(
+                    height: 80,
+                    color: AppColors.blue,
+                  ),
+                  Container(
+                    height: 80,
+                    color: AppColors.blue,
+                  ),
+                  Container(
+                    height: 80,
+                    color: AppColors.blue,
+                  )
                 ],
               ),
             ),

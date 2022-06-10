@@ -1,5 +1,6 @@
-enum LoginStatusE {
+enum HomeStatusE {
   initial,
   loading,
+  complete,
   failure,
 }

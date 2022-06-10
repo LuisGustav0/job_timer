@@ -3,25 +3,22 @@ import 'package:mobx/mobx.dart';
 
 part 'login_store.g.dart';
 
-class LoginState = _LoginState with _$LoginState;
+class LoginStore = _LoginStore with _$LoginStore;
 
-abstract class _LoginState with Store {
+abstract class _LoginStore with Store {
   @observable
-  LoginStatusE statusE = LoginStatusE.INITIAL;
+  LoginStatusE statusE = LoginStatusE.initial;
 
   @observable
   String? errorMessage;
 
   @action
-  void copyWith({required LoginStatusE status, String? errorMessage}) {
+  void onChangeStatus(LoginStatusE status, {String? errorMessage}) {
     status = status;
     errorMessage = errorMessage;
   }
 
-  bool isShowContent() =>
-      statusE == LoginStatusE.INITIAL || statusE != LoginStatusE.LOADING;
+  bool isStatusLoading() => statusE == LoginStatusE.loading;
 
-  bool isStatusLoading() => statusE == LoginStatusE.LOADING;
-
-  bool isStatusFailure() => statusE != LoginStatusE.FAILURE;
+  // bool isStatusFailure() => statusE != LoginStatusE.failure;
 }

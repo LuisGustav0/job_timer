@@ -6,6 +6,7 @@ import 'package:job_timer/app/core/services/auth/auth_service.dart';
 import 'package:job_timer/app/core/services/auth/auth_service_impl.dart';
 import 'package:job_timer/app/modules/home/home_module.dart';
 import 'package:job_timer/app/modules/login/login_module.dart';
+import 'package:job_timer/app/modules/project/project_module.dart';
 
 class AppModule extends Module {
 
@@ -20,5 +21,6 @@ class AppModule extends Module {
     ChildRoute('/', child: (context, args) => const SplashPage()),
     ModuleRoute('/login', module: LoginModule()),
     ModuleRoute('/home', module: HomeModule()),
+    ModuleRoute('/project', module: ProjectModule()),
   ];
 }

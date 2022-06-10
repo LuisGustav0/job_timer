@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Visibility(
-                  visible: widget.controller.state.isStatusLoading(),
+                  visible: widget.controller.store.isStatusLoading(),
                   child: const Padding(
                     padding: EdgeInsets.only(top: 15),
                     child: Center(
