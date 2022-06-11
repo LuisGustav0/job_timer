@@ -24,7 +24,7 @@ abstract class _HomeStore with Store {
     ProjectStatusE? filterProjectStatus,
   }) {
     this.statusE = statusE ?? this.statusE;
-    this.listProject = listProject ?? <ProjectModel>[].asObservable();
+    this.listProject = listProject ?? this.listProject;
     this.filterProjectStatus = filterProjectStatus ?? this.filterProjectStatus;
   }
 

@@ -18,6 +18,7 @@ class ProjectDetailPage extends StatefulWidget {
 }
 
 class _ProjectDetailPageState extends State<ProjectDetailPage> {
+
   _buildScaffoldBody(BuildContext context) {
     final projectModel = widget.controller.store.projectModel;
 
