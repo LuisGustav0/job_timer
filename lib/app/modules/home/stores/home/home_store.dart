@@ -18,35 +18,30 @@ abstract class _HomeStore with Store {
   ProjectStatusE filterProjectStatus = ProjectStatusE.em_andamento;
 
   @action
-  void emit(final HomeStatusE statusE, {
+  void emit({
+    HomeStatusE? statusE,
     List<ProjectModel>? listProject,
     ProjectStatusE? filterProjectStatus,
   }) {
-    onChangeHomeStatus(statusE);
-
-    if(filterProjectStatus != null) {
-      onChangeProjectStatus(filterProjectStatus);
-    }
-
-    if(listProject != null) {
-      setListProject(listProject);
-    }
+    this.statusE = statusE ?? this.statusE;
+    this.listProject = listProject ?? <ProjectModel>[].asObservable();
+    this.filterProjectStatus = filterProjectStatus ?? this.filterProjectStatus;
   }
 
-  @action
-  void onChangeHomeStatus(final HomeStatusE statusE) {
-    this.statusE = statusE;
-  }
-
-  @action
-  void onChangeProjectStatus(final ProjectStatusE filterProjectStatus) {
-    this.filterProjectStatus = filterProjectStatus;
-  }
-
-  @action
-  void setListProject(List<ProjectModel> listProject) {
-    this.listProject = listProject.asObservable();
-  }
+  // @action
+  // void onChangeHomeStatus(final HomeStatusE statusE) {
+  //   this.statusE = statusE;
+  // }
+  //
+  // @action
+  // void onChangeProjectStatus(final ProjectStatusE filterProjectStatus) {
+  //   this.filterProjectStatus = filterProjectStatus;
+  // }
+  //
+  // @action
+  // void setListProject(List<ProjectModel> listProject) {
+  //   this.listProject = listProject.asObservable();
+  // }
 
   bool isStatusLoading() => statusE == HomeStatusE.loading;
 }

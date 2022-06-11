@@ -47,6 +47,53 @@ class ProjectRepositoryImpl implements ProjectRepository {
   }
 
   @override
+  Future<Project> findById(int projectId) async {
+    try {
+      final connection = await _databaseService.openConnection();
+      final project = await connection.projects.get(projectId);
+
+      if (project == null) {
+        throw Failure(message: 'Projeto não encontrado');
+      }
+
+      return project;
+    } on IsarError catch (error, stack) {
+      log(
+        'Projeto não encontrado',
+        error: error,
+        stackTrace: stack,
+      );
+
+      throw Failure(message: 'Projeto não encontrado');
+    }
+  }
+
+  @override
+  Future<void> finish(final int projectId) async {
+    try {
+      final connection = await _databaseService.openConnection();
+      final project = await findById(projectId);
+
+      project.statusE = ProjectStatusE.finalizado;
+
+      await connection.writeTxn(
+        (isar) => connection.projects.put(
+          project,
+          saveLinks: true,
+        ),
+      );
+    } on IsarError catch (error, stack) {
+      log(
+        'Erro ao finalizar projeto',
+        error: error,
+        stackTrace: stack,
+      );
+
+      throw Failure(message: 'Erro ao finalizar projeto');
+    }
+  }
+
+  @override
   Future<void> deleteAll() async {
     try {
       final connection = await _databaseService.openConnection();

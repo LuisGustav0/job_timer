@@ -26,18 +26,16 @@ abstract class _HomeController with Store {
 
   Future<void> _loadListProject() async {
     try {
-      store.onChangeHomeStatus(HomeStatusE.loading);
+      store.emit(statusE: HomeStatusE.loading);
 
       final listProject =
           await _projectService.findByStatus(store.filterProjectStatus);
 
-      store.setListProject(listProject);
-
-      store.onChangeHomeStatus(HomeStatusE.complete);
+      store.emit(statusE: HomeStatusE.complete, listProject: listProject);
     } catch (error, stack) {
       log('Erro ao carregar lista de projeto', error: error, stackTrace: stack);
 
-      store.onChangeHomeStatus(HomeStatusE.failure);
+      store.emit(statusE: HomeStatusE.failure);
 
       AsukaSnackbar.alert('Erro ao carregar lista de projeto').show();
     }
@@ -45,19 +43,19 @@ abstract class _HomeController with Store {
 
   Future<void> onChangedStatus(final ProjectStatusE statusE) async {
     try {
-      store.emit(HomeStatusE.loading, listProject: []);
+      store.emit(statusE: HomeStatusE.loading, listProject: []);
 
       final listProject = await _projectService.findByStatus(statusE);
 
       store.emit(
-        HomeStatusE.complete,
+        statusE: HomeStatusE.complete,
         listProject: listProject,
         filterProjectStatus: statusE,
       );
     } catch (error, stack) {
       log('Erro ao carregar lista de projeto', error: error, stackTrace: stack);
 
-      store.onChangeHomeStatus(HomeStatusE.failure);
+      store.emit(statusE: HomeStatusE.failure);
 
       AsukaSnackbar.alert('Erro ao carregar lista de projeto').show();
     }
@@ -65,7 +63,7 @@ abstract class _HomeController with Store {
 
   Future<void> deleteAll() async {
     try {
-      store.emit(HomeStatusE.loading, listProject: []);
+      store.emit(statusE: HomeStatusE.loading, listProject: []);
 
       await _projectService.deleteAll();
 
@@ -73,7 +71,7 @@ abstract class _HomeController with Store {
     } catch (error, stack) {
       log('Erro ao deletar lista de projeto', error: error, stackTrace: stack);
 
-      store.onChangeHomeStatus(HomeStatusE.failure);
+      store.emit(statusE: HomeStatusE.failure);
 
       AsukaSnackbar.alert('Erro ao deletar lista de projeto').show();
     }

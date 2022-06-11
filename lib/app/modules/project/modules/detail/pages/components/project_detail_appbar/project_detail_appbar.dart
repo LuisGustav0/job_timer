@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:job_timer/app/core/ui/app_colors.dart';
+import 'package:job_timer/app/modules/project/enums/project_status_enum.dart';
+import 'package:job_timer/app/modules/project/models/project_model.dart';
 import 'package:job_timer/app/modules/project/modules/detail/pages/components/new_task/new_task.dart';
 
 class ProjectDetailAppbar extends SliverAppBar {
-  ProjectDetailAppbar({super.key})
+  ProjectDetailAppbar({required ProjectModel projectModel, super.key})
       : super(
           pinned: true,
           centerTitle: true,
           toolbarHeight: 100,
           expandedHeight: 100,
-          title: const Text('Projeto X'),
+          title: Text(projectModel.name),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(15),
@@ -37,9 +39,13 @@ class ProjectDetailAppbar extends SliverAppBar {
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text('10 tasks'),
-                          NewTask(),
+                        children: [
+                          Text('${projectModel.listTask.length} tasks'),
+                          Visibility(
+                            visible: projectModel.statusE != ProjectStatusE.finalizado,
+                            child: NewTask(projectModel: projectModel),
+                            replacement: const Text('Projeto Finalizado'),
+                          ),
                         ],
                       ),
                     ),

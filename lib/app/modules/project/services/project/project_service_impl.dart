@@ -29,6 +29,18 @@ class ProjectServiceImpl implements ProjectService {
   }
 
   @override
+  Future<ProjectModel> findById(int projectId) async {
+    final project = await _projectRepository.findById(projectId);
+
+    return ProjectModel.fromEntity(project);
+  }
+
+  @override
+  Future<void> finish(final int projectId) async {
+    await _projectRepository.finish(projectId);
+  }
+
+  @override
   Future<void> deleteAll() async {
     await _projectRepository.deleteAll();
   }
