@@ -3,10 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:job_timer/app/core/ui/app_colors.dart';
 
 class ProjectDetailPieChart extends StatelessWidget {
-  const ProjectDetailPieChart({super.key});
+  final int projectEstimate;
+  final int totalTask;
+
+  const ProjectDetailPieChart({
+    super.key,
+    required this.projectEstimate,
+    required this.totalTask,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final residual = (projectEstimate - totalTask);
+
     return SizedBox(
       width: 200,
       height: 200,
@@ -17,20 +26,20 @@ class ProjectDetailPieChart extends StatelessWidget {
             PieChartData(
               sections: [
                 PieChartSectionData(
-                  value: 50,
+                  value: totalTask.toDouble(),
                   color: AppColors.primaryColor,
                   showTitle: true,
-                  title: '50h',
+                  title: '${totalTask}h',
                   titleStyle: const TextStyle(
                     color: AppColors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 PieChartSectionData(
-                  value: 150,
+                  value: residual.toDouble(),
                   color: AppColors.primaryColorLight,
                   showTitle: true,
-                  title: '150h',
+                  title: '${residual}h',
                   titleStyle: const TextStyle(
                     color: AppColors.white,
                     fontWeight: FontWeight.bold,
@@ -39,11 +48,11 @@ class ProjectDetailPieChart extends StatelessWidget {
               ],
             ),
           ),
-          const Align(
+          Align(
             alignment: Alignment.center,
             child: Text(
-              '200h',
-              style: TextStyle(
+              '${projectEstimate}h',
+              style: const TextStyle(
                 fontSize: 25,
                 color: AppColors.primaryColor,
                 fontWeight: FontWeight.bold,

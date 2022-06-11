@@ -28,20 +28,7 @@ abstract class _HomeStore with Store {
     this.filterProjectStatus = filterProjectStatus ?? this.filterProjectStatus;
   }
 
-  // @action
-  // void onChangeHomeStatus(final HomeStatusE statusE) {
-  //   this.statusE = statusE;
-  // }
-  //
-  // @action
-  // void onChangeProjectStatus(final ProjectStatusE filterProjectStatus) {
-  //   this.filterProjectStatus = filterProjectStatus;
-  // }
-  //
-  // @action
-  // void setListProject(List<ProjectModel> listProject) {
-  //   this.listProject = listProject.asObservable();
-  // }
-
   bool isStatusLoading() => statusE == HomeStatusE.loading;
+
+  bool isStatusComplete() => statusE == HomeStatusE.complete;
 }

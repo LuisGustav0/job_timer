@@ -29,7 +29,7 @@ abstract class _HomeController with Store {
       store.emit(statusE: HomeStatusE.loading);
 
       final listProject =
-          await _projectService.findByStatus(store.filterProjectStatus);
+      await _projectService.findByStatus(store.filterProjectStatus);
 
       store.emit(statusE: HomeStatusE.complete, listProject: listProject);
     } catch (error, stack) {
@@ -76,4 +76,7 @@ abstract class _HomeController with Store {
       AsukaSnackbar.alert('Erro ao deletar lista de projeto').show();
     }
   }
+
+  Future<void> updateList() async =>
+      await onChangedStatus(store.filterProjectStatus);
 }

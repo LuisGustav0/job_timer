@@ -4,6 +4,7 @@ import 'package:isar/isar.dart';
 import 'package:job_timer/app/core/database/database_service.dart';
 import 'package:job_timer/app/core/exceptions/failure.dart';
 import 'package:job_timer/app/modules/project/entities/project/project.dart';
+import 'package:job_timer/app/modules/project/entities/project_task/project_task.dart';
 import 'package:job_timer/app/modules/project/enums/project_status_enum.dart';
 import 'package:job_timer/app/modules/project/repositories/project/project_repository.dart';
 
@@ -107,6 +108,28 @@ class ProjectRepositoryImpl implements ProjectRepository {
       );
 
       throw Failure(message: 'Erro ao deletar lista de projeto');
+    }
+  }
+
+  @override
+  Future<Project> addTask(final int projectId, final ProjectTask task) async {
+    try {
+      final connection = await _databaseService.openConnection();
+
+      final project = await findById(projectId);
+      project.listTask.add(task);
+
+      await connection.writeTxn((isar) => project.listTask.save());
+
+      return project;
+    } on IsarError catch (error, stack) {
+      log(
+        'Erro ao salvar task no projeto',
+        error: error,
+        stackTrace: stack,
+      );
+
+      throw Failure(message: 'Erro ao salvar task no projeto');
     }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:job_timer/app/modules/project/enums/project_status_enum.dart';
 import 'package:job_timer/app/modules/project/models/project_model.dart';
+import 'package:job_timer/app/modules/project/models/project_task_model.dart';
 
 abstract class ProjectService {
 
@@ -12,4 +13,6 @@ abstract class ProjectService {
   Future<void> finish(final int projectId);
 
   Future<void> deleteAll();
+
+  Future<ProjectModel> addTask(final int projectId, final ProjectTaskModel task);
 }

@@ -64,7 +64,7 @@ class _ProjectRegisterPageState extends State<ProjectRegisterPage> {
                   decoration: const InputDecoration(
                     label: Text('Nome do projeto'),
                   ),
-                  validator: Validatorless.required('Nome obrigatório'),
+                  validator: Validatorless.required('Nome é obrigatório'),
                 ),
                 const SizedBox(
                   height: 10,
@@ -76,7 +76,7 @@ class _ProjectRegisterPageState extends State<ProjectRegisterPage> {
                   ),
                   keyboardType: TextInputType.number,
                   validator: Validatorless.multiple([
-                    Validatorless.required('Estimativa obrigatório'),
+                    Validatorless.required('Estimativa é obrigatório'),
                     Validatorless.number('Permitido somente números'),
                   ]),
                 ),

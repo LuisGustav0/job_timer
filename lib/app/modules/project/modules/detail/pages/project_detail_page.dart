@@ -1,4 +1,3 @@
-import 'package:asuka/asuka.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:job_timer/app/core/ui/job_timer_icons.dart';
@@ -41,6 +40,9 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
   }
 
   Widget _buildProjectDetail(BuildContext context, ProjectModel projectModel) {
+    final totalTask = projectModel.listTask
+        .fold<int>(0, (previousValue, task) => previousValue += task.duration);
+
     return CustomScrollView(
       slivers: [
         ProjectDetailAppbar(
@@ -49,14 +51,19 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
         SliverList(
           delegate: SliverChildListDelegate(
             [
-              const Padding(
-                padding: EdgeInsets.only(
+              Padding(
+                padding: const EdgeInsets.only(
                   top: 50,
                   bottom: 50,
                 ),
-                child: ProjectDetailPieChart(),
+                child: ProjectDetailPieChart(
+                  projectEstimate: projectModel.estimate,
+                  totalTask: totalTask,
+                ),
               ),
-              ProjectDetailTaskTile(),
+              ...projectModel.listTask
+                  .map((task) => ProjectDetailTaskTile(projectTaskModel: task))
+                  .toList(),
             ],
           ),
         ),
@@ -66,12 +73,15 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
             alignment: Alignment.bottomRight,
             child: Padding(
               padding: const EdgeInsets.all(15),
-              child: ElevatedButton.icon(
-                icon: const Icon(JobTimerIcons.ok_circled2),
-                label: const Text('Finalizar projeto'),
-                onPressed: () async {
-                  await widget.controller.finishProject();
-                },
+              child: Visibility(
+                visible: widget.controller.store.isProjectFinish(),
+                child: ElevatedButton.icon(
+                  icon: const Icon(JobTimerIcons.ok_circled2),
+                  label: const Text('Finalizar projeto'),
+                  onPressed: () async {
+                    await widget.controller.finishProject();
+                  },
+                ),
               ),
             ),
           ),

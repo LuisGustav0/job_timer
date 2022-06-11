@@ -1,6 +1,8 @@
 import 'package:job_timer/app/modules/project/entities/project/project.dart';
+import 'package:job_timer/app/modules/project/entities/project_task/project_task.dart';
 import 'package:job_timer/app/modules/project/enums/project_status_enum.dart';
 import 'package:job_timer/app/modules/project/models/project_model.dart';
+import 'package:job_timer/app/modules/project/models/project_task_model.dart';
 import 'package:job_timer/app/modules/project/repositories/project/project_repository.dart';
 import 'package:job_timer/app/modules/project/services/project/project_service.dart';
 
@@ -43,5 +45,16 @@ class ProjectServiceImpl implements ProjectService {
   @override
   Future<void> deleteAll() async {
     await _projectRepository.deleteAll();
+  }
+
+  @override
+  Future<ProjectModel> addTask(final int projectId, final ProjectTaskModel task) async {
+    final projectTask = ProjectTask()
+        ..name = task.name
+        ..duration = task.duration;
+
+    final project = await _projectRepository.addTask(projectId, projectTask);
+
+    return ProjectModel.fromEntity(project);
   }
 }

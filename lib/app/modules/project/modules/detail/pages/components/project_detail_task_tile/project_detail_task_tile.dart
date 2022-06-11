@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:job_timer/app/core/ui/app_colors.dart';
+import 'package:job_timer/app/modules/project/models/project_task_model.dart';
 
 class ProjectDetailTaskTile extends StatelessWidget {
-  const ProjectDetailTaskTile({super.key});
+  final ProjectTaskModel projectTaskModel;
+
+  const ProjectDetailTaskTile({super.key, required this.projectTaskModel});
 
   @override
   Widget build(BuildContext context) {
@@ -16,25 +19,25 @@ class ProjectDetailTaskTile extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text('Nome da task'),
+          Text(projectTaskModel.name),
           RichText(
-            text: const TextSpan(
+            text: TextSpan(
               children: [
-                TextSpan(
+                const TextSpan(
                   text: 'Duração',
                   style: TextStyle(
                     color: AppColors.grey,
                   ),
                 ),
-                TextSpan(
+                const TextSpan(
                   text: '    ',
                   style: TextStyle(
                     color: AppColors.grey,
                   ),
                 ),
                 TextSpan(
-                  text: '4h',
-                  style: TextStyle(
+                  text: '${projectTaskModel.duration}h',
+                  style: const TextStyle(
                     color: AppColors.black,
                     fontWeight: FontWeight.bold,
                   ),

@@ -55,6 +55,8 @@ abstract class _ProjectDetailController with Store {
       await _projectService.finish(projectId);
 
       await updateProject();
+
+      store.emit(statusE: ProjectDetailStatusE.complete);
     } catch (error, stack) {
       log('Erro ao finalizar projeto!', error: error, stackTrace: stack);
 
