@@ -1,4 +1,4 @@
-import 'package:job_timer/app/modules/project/register/enums/project_register_status_enum.dart';
+import 'package:job_timer/app/modules/project/modules/register/enums/project_register_status_enum.dart';
 import 'package:mobx/mobx.dart';
 
 part 'project_register_store.g.dart';

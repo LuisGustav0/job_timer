@@ -4,8 +4,8 @@ import 'package:asuka/asuka.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:job_timer/app/modules/project/enums/project_status_enum.dart';
 import 'package:job_timer/app/modules/project/models/project_model.dart';
-import 'package:job_timer/app/modules/project/register/enums/project_register_status_enum.dart';
-import 'package:job_timer/app/modules/project/register/stores/project_register/project_register_store.dart';
+import 'package:job_timer/app/modules/project/modules/register/enums/project_register_status_enum.dart';
+import 'package:job_timer/app/modules/project/modules/register/stores/project_register/project_register_store.dart';
 import 'package:job_timer/app/modules/project/services/project/project_service.dart';
 import 'package:mobx/mobx.dart';
 

@@ -7,7 +7,7 @@ import 'package:job_timer/app/modules/home/pages/widgets/project_tile/project_ti
 class HomePage extends StatefulWidget {
   final HomeController controller;
 
-  const HomePage({Key? key, required this.controller}) : super(key: key);
+  const HomePage({super.key, required this.controller});
 
   @override
   State<HomePage> createState() => _HomePageState();

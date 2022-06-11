@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:job_timer/app/core/ui/app_colors.dart';
 import 'package:job_timer/app/core/widgets/button_with_load/button_with_load.dart';
-import 'package:job_timer/app/modules/project/register/controllers/project_register_controller.dart';
+import 'package:job_timer/app/modules/project/modules/register/controllers/project_register_controller.dart';
 import 'package:validatorless/validatorless.dart';
 
 class ProjectRegisterPage extends StatefulWidget {

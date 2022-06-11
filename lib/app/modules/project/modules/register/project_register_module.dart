@@ -1,6 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:job_timer/app/modules/project/register/controllers/project_register_controller.dart';
-import 'package:job_timer/app/modules/project/register/pages/project_register_page.dart';
+import 'package:job_timer/app/modules/project/modules/register/controllers/project_register_controller.dart';
+import 'package:job_timer/app/modules/project/modules/register/pages/project_register_page.dart';
 
 class ProjectRegisterModule extends Module {
   @override
