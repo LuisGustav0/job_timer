@@ -40,9 +40,29 @@ class ProjectDetailAppbar extends SliverAppBar {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('${projectModel.listTask.length} tasks'),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: '${projectModel.listTask.length}',
+                                  style: const TextStyle(
+                                    color: AppColors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const TextSpan(text: ' '),
+                                const TextSpan(
+                                  text: 'tasks',
+                                  style: TextStyle(
+                                    color: AppColors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                           Visibility(
-                            visible: projectModel.statusE != ProjectStatusE.finalizado,
+                            visible: projectModel.statusE !=
+                                ProjectStatusE.finalizado,
                             child: NewTask(projectModel: projectModel),
                             replacement: const Text('Projeto Finalizado'),
                           ),

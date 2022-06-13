@@ -20,13 +20,27 @@ class _HomePageState extends State<HomePage> {
       builder: (_) => Scaffold(
         drawer: Drawer(
           child: SafeArea(
-            child: ListTile(
-              title: InkWell(
-                child: const Text('Sair'),
-                onTap: () async {
-                    await widget.controller.deleteAll();
-                },
-              ),
+            child: ListView(
+              children: <Widget>[
+                ListTile(
+                  trailing: const Icon(Icons.logout),
+                  title: InkWell(
+                    child: const Text('Sair'),
+                    onTap: () async {
+                      await widget.controller.logout();
+                    },
+                  ),
+                ),
+                ListTile(
+                  trailing: const Icon(Icons.cleaning_services_outlined),
+                  title: InkWell(
+                    child: const Text('Limpar registro'),
+                    onTap: () async {
+                      await widget.controller.deleteAll();
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
         ),

@@ -32,7 +32,7 @@ class ProjectProgress extends StatelessWidget {
             child: LinearProgressIndicator(
               value: percent,
               backgroundColor: AppColors.grey400,
-              color: AppColors.primaryColor,
+              color: percent > 1 ? AppColors.red : AppColors.primaryColor,
             ),
           ),
           Padding(

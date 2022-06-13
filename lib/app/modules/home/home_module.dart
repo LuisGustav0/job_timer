@@ -10,6 +10,7 @@ class HomeModule extends Module {
         Bind.lazySingleton<HomeController>(
           (i) => HomeController(
             projectService: i(),
+            authService: i(),
           ),
         ),
       ];

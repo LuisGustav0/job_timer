@@ -35,7 +35,7 @@ class ButtonWithLoad extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: isShowLoading ? null : onPressed,
       child: showWidget,
     );
   }

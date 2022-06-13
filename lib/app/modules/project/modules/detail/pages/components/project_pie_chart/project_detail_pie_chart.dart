@@ -16,6 +16,46 @@ class ProjectDetailPieChart extends StatelessWidget {
   Widget build(BuildContext context) {
     final residual = (projectEstimate - totalTask);
 
+    var chartData = <PieChartSectionData>[];
+
+    if (residual > 0) {
+      chartData = [
+        PieChartSectionData(
+          value: totalTask.toDouble(),
+          color: AppColors.primaryColor,
+          showTitle: true,
+          title: '${totalTask}h',
+          titleStyle: const TextStyle(
+            color: AppColors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        PieChartSectionData(
+          value: residual.toDouble(),
+          color: AppColors.primaryColorLight,
+          showTitle: true,
+          title: '${residual}h',
+          titleStyle: const TextStyle(
+            color: AppColors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ];
+    } else {
+      chartData = [
+        PieChartSectionData(
+          value: totalTask.toDouble(),
+          color: AppColors.red,
+          showTitle: true,
+          title: '${totalTask}h',
+          titleStyle: const TextStyle(
+            color: AppColors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ];
+    }
+
     return SizedBox(
       width: 200,
       height: 200,
@@ -23,30 +63,7 @@ class ProjectDetailPieChart extends StatelessWidget {
         fit: StackFit.loose,
         children: [
           PieChart(
-            PieChartData(
-              sections: [
-                PieChartSectionData(
-                  value: totalTask.toDouble(),
-                  color: AppColors.primaryColor,
-                  showTitle: true,
-                  title: '${totalTask}h',
-                  titleStyle: const TextStyle(
-                    color: AppColors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                PieChartSectionData(
-                  value: residual.toDouble(),
-                  color: AppColors.primaryColorLight,
-                  showTitle: true,
-                  title: '${residual}h',
-                  titleStyle: const TextStyle(
-                    color: AppColors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
+            PieChartData(sections: chartData),
           ),
           Align(
             alignment: Alignment.center,

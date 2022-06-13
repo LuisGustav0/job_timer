@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:asuka/asuka.dart';
+import 'package:job_timer/app/core/services/auth/auth_service.dart';
 import 'package:job_timer/app/modules/home/enums/home_status_enum.dart';
 import 'package:job_timer/app/modules/home/stores/home/home_store.dart';
 import 'package:job_timer/app/modules/project/enums/project_status_enum.dart';
@@ -13,12 +14,16 @@ class HomeController = _HomeController with _$HomeController;
 
 abstract class _HomeController with Store {
   final ProjectService _projectService;
+  final AuthService _authService;
 
   @observable
   HomeStore store = HomeStore();
 
-  _HomeController({required ProjectService projectService})
-      : _projectService = projectService;
+  _HomeController({
+    required ProjectService projectService,
+    required AuthService authService,
+  })  : _projectService = projectService,
+        _authService = authService;
 
   Future<void> init() async {
     await _loadListProject();
@@ -29,7 +34,7 @@ abstract class _HomeController with Store {
       store.emit(statusE: HomeStatusE.loading);
 
       final listProject =
-      await _projectService.findByStatus(store.filterProjectStatus);
+          await _projectService.findByStatus(store.filterProjectStatus);
 
       store.emit(statusE: HomeStatusE.complete, listProject: listProject);
     } catch (error, stack) {
@@ -79,4 +84,6 @@ abstract class _HomeController with Store {
 
   Future<void> updateList() async =>
       await onChangedStatus(store.filterProjectStatus);
+
+  Future<void> logout() async =>  await _authService.signOut();
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:job_timer/app/core/ui/app_colors.dart';
 import 'package:job_timer/app/core/ui/job_timer_icons.dart';
 import 'package:job_timer/app/modules/project/models/project_model.dart';
 import 'package:job_timer/app/modules/project/modules/detail/controllers/project_detail/project_detail_controller.dart';
@@ -18,7 +19,6 @@ class ProjectDetailPage extends StatefulWidget {
 }
 
 class _ProjectDetailPageState extends State<ProjectDetailPage> {
-
   _buildScaffoldBody(BuildContext context) {
     final projectModel = widget.controller.store.projectModel;
 
@@ -49,23 +49,24 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
         ProjectDetailAppbar(
           projectModel: projectModel,
         ),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.only(
+              top: 50,
+              bottom: 50,
+            ),
+            child: ProjectDetailPieChart(
+              projectEstimate: projectModel.estimate,
+              totalTask: totalTask,
+            ),
+          ),
+        ),
         SliverList(
-          delegate: SliverChildListDelegate(
-            [
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 50,
-                  bottom: 50,
-                ),
-                child: ProjectDetailPieChart(
-                  projectEstimate: projectModel.estimate,
-                  totalTask: totalTask,
-                ),
-              ),
-              ...projectModel.listTask
-                  .map((task) => ProjectDetailTaskTile(projectTaskModel: task))
-                  .toList(),
-            ],
+          delegate: SliverChildBuilderDelegate(
+            (context, index) => ProjectDetailTaskTile(
+              projectTaskModel: projectModel.listTask[index],
+            ),
+            childCount: projectModel.listTask.length,
           ),
         ),
         SliverFillRemaining(
@@ -79,15 +80,40 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
                 child: ElevatedButton.icon(
                   icon: const Icon(JobTimerIcons.ok_circled2),
                   label: const Text('Finalizar projeto'),
-                  onPressed: () async {
-                    await widget.controller.finishProject();
-                  },
+                  onPressed: () => _confirmFinishProject(context),
                 ),
               ),
             ),
           ),
         ),
       ],
+    );
+  }
+
+  void _confirmFinishProject(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Confirma a finalização do projeto?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () async {
+                Navigator.pop(context);
+                await widget.controller.finishProject();
+              },
+              child: const Text(
+                'Confirmar',
+                style: TextStyle(color: AppColors.red),
+              ),
+            )
+          ],
+        );
+      },
     );
   }
 

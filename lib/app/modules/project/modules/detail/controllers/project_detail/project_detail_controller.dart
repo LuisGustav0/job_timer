@@ -27,6 +27,8 @@ abstract class _ProjectDetailController with Store {
         throw Exception('Erro ao carregar projeto!');
       }
 
+      _sortListTask(projectModel);
+
       store.emit(
         statusE: ProjectDetailStatusE.complete,
         projectModel: projectModel,
@@ -42,6 +44,8 @@ abstract class _ProjectDetailController with Store {
   Future<void> updateProject() async {
     final projectId = store.projectModel!.id!;
     final projectModel = await _projectService.findById(projectId);
+
+    _sortListTask(projectModel);
 
     store.emit(projectModel: projectModel);
   }
@@ -62,5 +66,10 @@ abstract class _ProjectDetailController with Store {
 
       store.emit(statusE: ProjectDetailStatusE.failure);
     }
+  }
+
+  void _sortListTask(final ProjectModel projectModel) {
+    projectModel.listTask
+        .sort((taskOld, taskNew) => taskNew.id!.compareTo(taskOld.id!));
   }
 }
